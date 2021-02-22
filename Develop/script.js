@@ -1,64 +1,53 @@
-  
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input, modification made from passwordText.value 
-// to ...textContent to allow password to populate
+// Write password to the #password input
 function writePassword() {
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
-    passwordText.textContent = password;
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+
+
+
+}
+
+function generatePassword() {
+  alert("Please select your password criteria from the following prompts. Select 'OK' to include the character type in your password, or select 'CANCEL' to exclude the character type from your password.");
+  // prompt user for type of characters desired in password
+  const uppercaseChar=confirm("Include uppercase Letters?");
+  const lowercaseChar=confirm("Include lowercase Letters?");
+  const num=confirm("Include numbers?");
+  const spec=confirm("Include special characters?");
+  const PasswordLength=parseInt(prompt("Please select your password length: must be a minimum of 8 and a maximum of 128 characters."));
+  
+  // build an array for available character types
+  const characters = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789", "!@#$%^&*()"]
+  let mainString = "";
+  if(uppercaseChar) {
+    mainString += characters[0];
+  }
+  if(lowercaseChar) {
+    mainString += characters[1];
+  }
+
+  if(num) {
+    mainString += characters[2];
+  }
+  if(spec) {
+    mainString += characters[3];
+  }
+
+  console.log(mainString)
+ 
+  // for() loop to generate random password
+  let finalPassword =""
+  for (let i = 0; i < PasswordLength; i++) {
+    // random number
+    finalPassword += mainString.charAt(Math.floor(Math.random() * mainString.length));
+    
+  }
+  return finalPassword
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-// Set globals variables, and the type of content they will contain
-var pwRandom = "";
-var charRandom = "";
-var charString = [];
-var pwLength = [];
-var charInteger = {};
-
-function generatePassword() {
-  // promt user for password length
-  while ((pwLength) < 8 || (pwLength) > 128) {
-      pwLength = prompt("Please select a password character length of no less than 8 characters and no more than 128 characters.");
-      charInteger = pwLength
-  } 
-  return setPassword();
-};
-
-function setPassword() {
-  // user prompts to determine password characters
-  var upperCaseLetter = confirm("Include uppercase letters?");
-  if (upperCaseLetter === true) {
-      charString = charString + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  }
-
-  var lowerCaseLetter = confirm("Include lowercase letters?");
-  if (lowerCaseLetter === true) {
-      charString = charString + "abcdefghijklmnopqrstuvwxyz";
-  }
-
-  var numbersCharacters = confirm("Include numbers?");
-  if (numbersCharacters === true) {
-      charString = "0123456789";
-  }
-
-  var specialSymbols = confirm("Include special characters?");
-  if (specialSymbols === true) {
-      charString = charString + "!@#$%^&*?";
-  }
-
-  // for loop to generate a password 
-  for (var i = 0; i < pwLength; i++) {
-      var charRandom = Math.floor(Math.random()*charString.length);
-      var pwCharacter = charString[charRandom];
-      pwRandom += pwCharacter;
-  } 
-
-  // return pwRandom to generate random password
-  return pwRandom;
-
-};
