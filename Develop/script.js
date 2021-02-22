@@ -22,10 +22,13 @@ function generatePassword() {
   
   // build an array for available character types
   const characters = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789", "!@#$%^&*()"]
+  
   let mainString = "";
+
   if(uppercaseChar) {
     mainString += characters[0];
   }
+
   if(lowercaseChar) {
     mainString += characters[1];
   }
@@ -33,6 +36,7 @@ function generatePassword() {
   if(num) {
     mainString += characters[2];
   }
+
   if(spec) {
     mainString += characters[3];
   }
